@@ -77,3 +77,15 @@ Known limits:
 ## ONNX model
 
 `models/clearwave-4class.onnx` (YOLO26s, input 1x3x640x640 RGB 0-1, output 1x8x8400 = 4 box + 4 class scores per candidate, needs NMS). Classes in `models/classes.txt`. Val mAP50 0.87 on a small 40-image set; weaker on real ESP32-CAM frames.
+
+## Browser demo (no Python, runs the ONNX model in Chrome)
+
+```bash
+# one-time: fetch the runtime (kept out of git, ~22 MB)
+cd /tmp && npm pack onnxruntime-web@1.22.0 && tar xzf onnxruntime-web-1.22.0.tgz
+mkdir -p ~/Documents/searotor/web/ort && cp package/dist/{ort.min.js,ort-wasm-simd-threaded.jsep.mjs,ort-wasm-simd-threaded.jsep.wasm} ~/Documents/searotor/web/ort/
+
+python web/serve.py          # then open http://localhost:8000/web/
+```
+
+The page finds the camera by itself: saved address, then `esp32cam.local`, then a scan of the laptop's own subnet (`serve.py` reports it at `/lan`) and common hotspot subnets. It searches again when the WiFi changes or the camera is lost. Laptop and camera must be on the **same** WiFi; the camera firmware still has one hardcoded network. Open it from `localhost` (plain `http`), not an `https` page, or the browser blocks requests to the camera.
