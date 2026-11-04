@@ -20,7 +20,7 @@ while not quit_:
         ok, frame = cap.read()
         if not ok:
             break
-        img = model(frame, conf=0.10, verbose=False)[0].plot()
+        img = model(frame, conf=0.07, verbose=False)[0].plot()
         cv2.imshow("esp32-cam yolo", cv2.resize(img, (W, H)))
         if cv2.waitKey(1) == ord("q"):
             quit_ = True

@@ -73,3 +73,7 @@ Known limits:
 - **Brownout resets / no WiFi:** weak USB power or cable. Use a good 5 V supply.
 - **Serial permission denied:** `sudo chmod 666 /dev/ttyUSB0` (resets on replug) or add yourself to `dialout`.
 - **Camera unreachable:** laptop and camera must be on the same WiFi.
+
+## ONNX model
+
+`models/clearwave-4class.onnx` (YOLO26s, input 1x3x640x640 RGB 0-1, output 1x8x8400 = 4 box + 4 class scores per candidate, needs NMS). Classes in `models/classes.txt`. Val mAP50 0.87 on a small 40-image set; weaker on real ESP32-CAM frames.
