@@ -1,0 +1,9 @@
+datasets/
+runs/
+*.pt
+*.zip
+WhatsApp Image*
+__pycache__/
+.claude/
+CLAUDE.md
+AGENTS.md
